@@ -11,7 +11,7 @@ import static com.google.android.youtube.automation.pageobject.Screen.ID;
  * @author Carmelo Buelvas
  * @since 1.0
  */
-@AndroidFindBy(xpath = ID + "video_info_view")
+@AndroidFindBy(id = ID + "video_info_view")
 public class SearchListVideoInformationWidget extends Widget {
 
     @AndroidFindBy(id = ID + "thumbnail")

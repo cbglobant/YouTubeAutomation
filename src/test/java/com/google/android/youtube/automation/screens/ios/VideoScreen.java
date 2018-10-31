@@ -5,10 +5,12 @@ import com.google.android.youtube.automation.util.annottation.Screen;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.WithTimeout;
 import io.qameta.allure.Step;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Carmelo Buelvas
@@ -38,6 +40,10 @@ public class VideoScreen extends com.google.android.youtube.automation.pageobjec
     @AndroidFindBy(id = ID + "subscribe_button")
     private MobileElement subscribeButton;
 
+    @AndroidFindBy(id = ID + "notification_toggle_view")
+    @WithTimeout(time = 30, unit = TimeUnit.SECONDS)
+    private MobileElement notificationButton;
+
     private List<ButtonsWidget> buttonsWidgets;
 
     /**
@@ -46,6 +52,12 @@ public class VideoScreen extends com.google.android.youtube.automation.pageobjec
     @Autowired
     public VideoScreen(AppiumDriver<? extends MobileElement> appiumDriver) {
         super(appiumDriver);
+    }
+
+    @Step("Tap on search")
+    public VideoScreen tapOnSubscribe(){
+        subscribeButton.click();
+        return this;
     }
 
     /**
@@ -121,5 +133,14 @@ public class VideoScreen extends com.google.android.youtube.automation.pageobjec
     @Step("Validate channel suscribers displayed")
     public Boolean isSubscribeButtonDisplayed() {
         return subscribeButton.isDisplayed();
+    }
+
+    /**
+     * @return <code>Boolean.TRUE</code> if the notification button title is displayed;
+     * <code>Boolean.FALSE</code> otherwise
+     */
+    @Step("Validate notification button displayed")
+    public Boolean isNotificationButtonDisplayed() {
+        return notificationButton.isDisplayed();
     }
 }

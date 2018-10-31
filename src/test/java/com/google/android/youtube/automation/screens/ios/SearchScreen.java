@@ -38,7 +38,7 @@ public class SearchScreen extends com.google.android.youtube.automation.pageobje
     @WithTimeout(time = 30, unit = TimeUnit.SECONDS)
     private List<SearchListWidget> searchListWidgets;
 
-    @WithTimeout(time = 30, unit = TimeUnit.SECONDS)
+    @WithTimeout(time = 60, unit = TimeUnit.SECONDS)
     private List<SearchListVideoInformationWidget> searchListVideoInformationWidgets;
 
     /**
@@ -67,9 +67,9 @@ public class SearchScreen extends com.google.android.youtube.automation.pageobje
     @Step("Select result")
     public VideoScreen selectSearchResultVideo(String nameChannel) {
         searchListVideoInformationWidgets.stream()
-                .filter(searchListVideoInformationWidget -> searchListVideoInformationWidget.getAuthor().equals(nameChannel))
+                .filter(widget -> widget.getAuthor().getText().equals(nameChannel))
                 .findFirst()
-                .ifPresent(searchListVideoInformationWidget -> searchListVideoInformationWidget.getWrappedElement().click());
+                .ifPresent(widget -> widget.getWrappedElement().click());
         return new VideoScreen(getDriver());
     }
 
@@ -92,10 +92,10 @@ public class SearchScreen extends com.google.android.youtube.automation.pageobje
      * <code>Boolean.FALSE</code> otherwise
      */
     @Step("Validate results")
-    public Boolean isValidSearchResultVideo() {
+    public Boolean isValidSearchResultVideo(String nameChannel) {
         return searchListVideoInformationWidgets.stream()
                 .findFirst()
-                .map(searchListVideoInformationWidget -> searchListVideoInformationWidget.getWrappedElement().isDisplayed())
+                .map(widget -> widget.getAuthor().getText().equals(nameChannel))
                 .orElse(Boolean.FALSE);
     }
 }
