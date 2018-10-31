@@ -10,8 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
 /**
  * @author Carmelo Buelvas
  * @since 1.0
@@ -34,7 +32,6 @@ public abstract class Screen {
     }
 
     /**
-     *
      * @return appiumDriver
      */
     protected AppiumDriver getDriver() {
